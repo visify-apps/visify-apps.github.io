@@ -1,0 +1,46 @@
+---
+interface Props {
+  href?: string;
+  class?: string;
+}
+
+const { href = "/", class: className = "" } = Astro.props;
+---
+
+<a href={href} class:list={["logo", className]} aria-label="Visify Apps home">
+  <span class="logo__mark" aria-hidden="true">
+    <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+      <rect width="32" height="32" fill="var(--color-lime)"></rect>
+      <path d="M8 9.5h4.2L16 20.2 19.8 9.5H24L17.4 24h-2.8L8 9.5Z" fill="#0A0A0A"
+      ></path>
+    </svg>
+  </span>
+  <span class="logo__word">VISIFY</span>
+</a>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    text-decoration: none;
+    color: var(--color-white);
+  }
+
+  .logo:hover {
+    color: var(--color-white);
+  }
+
+  .logo__mark {
+    flex-shrink: 0;
+    line-height: 0;
+  }
+
+  .logo__word {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: var(--font-weight-black);
+    letter-spacing: 0.06em;
+    line-height: 1;
+  }
+</style>

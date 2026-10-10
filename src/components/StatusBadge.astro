@@ -1,0 +1,48 @@
+---
+import { statusLabels, type ProductStatus } from "../data/products";
+
+interface Props {
+  status: ProductStatus;
+}
+
+const { status } = Astro.props;
+---
+
+<span class:list={["badge", `badge--${status}`]}>
+  {statusLabels[status]}
+</span>
+
+<style>
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.3rem 0.55rem;
+    border: var(--border-w) solid currentColor;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: var(--font-weight-medium);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
+
+  .badge--building {
+    background: var(--status-building-bg);
+    color: var(--status-building-text);
+  }
+
+  .badge--launching_soon {
+    background: var(--status-launching-bg);
+    color: var(--status-launching-text);
+  }
+
+  .badge--available {
+    background: var(--status-available-bg);
+    color: var(--status-available-text);
+  }
+
+  .badge--retired {
+    background: var(--status-retired-bg);
+    color: var(--status-retired-text);
+  }
+</style>

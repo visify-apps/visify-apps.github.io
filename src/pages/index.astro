@@ -1,0 +1,353 @@
+---
+import Button from "../components/Button.astro";
+import Section from "../components/Section.astro";
+import { approachPoints, site } from "../data/site";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const marqueeBits = [
+  "Build",
+  "Create",
+  "Grow",
+  "Practical tools",
+  "No fluff",
+  "Ship honest",
+];
+---
+
+<BaseLayout
+  title={`${site.name} — Simple software. Thoughtfully built.`}
+  description={site.description}
+  canonicalPath="/"
+>
+  <section class="hero">
+    <div class="container hero__grid">
+      <div class="hero__copy">
+        <p class="label rise">Software studio</p>
+        <h1 class="rise rise-delay-1">
+          <span class="hero__brand">VISIFY</span>
+          <span class="hero__sub">APPS</span>
+        </h1>
+        <p class="hero__line rise rise-delay-2">
+          Simple software.<br />
+          <em>Thoughtfully built.</em>
+        </p>
+        <p class="lead rise rise-delay-3">
+          We make practical digital products for everyday tasks — clear,
+          useful, and free of noise.
+        </p>
+        <div class="hero__actions rise rise-delay-3">
+          <Button href="/products">See the portfolio</Button>
+          <Button href="/about" variant="ghost">Who we are</Button>
+        </div>
+      </div>
+
+      <aside class="hero__panel rise rise-delay-2" aria-label="Studio snapshot">
+        <div class="hero__panel-top">
+          <span>STATUS</span>
+          <span class="hero__live">BUILDING</span>
+        </div>
+        <p class="hero__panel-title">A growing product house</p>
+        <ul class="hero__stats">
+          <li>
+            <span>01</span>
+            <p>Company-first brand</p>
+          </li>
+          <li>
+            <span>02</span>
+            <p>Products ship when ready</p>
+          </li>
+          <li>
+            <span>03</span>
+            <p>Design for real use</p>
+          </li>
+        </ul>
+        <a class="hero__panel-link" href="/contact">Talk to us →</a>
+      </aside>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      {
+        [...marqueeBits, ...marqueeBits].map((bit) => (
+          <span class="marquee__item">
+            <span>■</span> {bit}
+          </span>
+        ))
+      }
+    </div>
+  </div>
+
+  <Section id="approach">
+    <div class="approach-head">
+      <p class="label">How we build</p>
+      <h2>Less noise.<br />More done.</h2>
+    </div>
+    <ol class="approach">
+      {
+        approachPoints.map((point, i) => (
+          <li class="approach__row">
+            <span class="approach__num">0{i + 1}</span>
+            <div>
+              <h3>{point.title}</h3>
+              <p>{point.body}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </Section>
+
+  <section class="split-band">
+    <div class="container split-band__inner">
+      <div>
+        <p class="label">Portfolio</p>
+        <h2>What’s next</h2>
+        <p class="lead">
+          New apps land in the directory with honest status — building,
+          launching soon, or available. Nothing fake. Nothing early.
+        </p>
+      </div>
+      <div class="split-band__actions">
+        <Button href="/products">Open directory</Button>
+        <Button href="/contact" variant="lime-outline">Get updates</Button>
+      </div>
+    </div>
+  </section>
+
+  <Section class="finale">
+    <p class="label">Start here</p>
+    <h2 class="finale__title">
+      Built for people who<br />
+      <span>just want it to work.</span>
+    </h2>
+    <div class="finale__actions">
+      <Button href="/about">About Visify</Button>
+      <Button href="/contact" variant="ghost">Contact</Button>
+    </div>
+  </Section>
+</BaseLayout>
+
+<style>
+  .hero {
+    position: relative;
+    padding-block: var(--space-12) var(--space-16);
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(105deg, transparent 40%, rgb(200 255 77 / 0.05) 100%),
+      repeating-linear-gradient(
+        -12deg,
+        transparent,
+        transparent 48px,
+        rgb(255 255 255 / 0.02) 48px,
+        rgb(255 255 255 / 0.02) 49px
+      );
+    pointer-events: none;
+  }
+
+  .hero__grid {
+    position: relative;
+    display: grid;
+    gap: var(--space-12);
+    align-items: end;
+  }
+
+  @media (min-width: 900px) {
+    .hero__grid {
+      grid-template-columns: 1.35fr 0.85fr;
+      gap: var(--space-10);
+    }
+  }
+
+  .hero__brand {
+    display: block;
+    color: var(--color-white);
+  }
+
+  .hero__sub {
+    display: block;
+    color: var(--color-lime);
+  }
+
+  .hero__line {
+    margin-top: var(--space-6);
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 3.5vw, 2rem);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--leading-tight);
+  }
+
+  .hero__line em {
+    font-style: normal;
+    color: var(--color-lime);
+  }
+
+  .hero .lead {
+    margin-top: var(--space-5);
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-8);
+  }
+
+  .hero__panel {
+    border: var(--border-w) solid var(--color-lime);
+    background: var(--color-bg-elevated);
+    box-shadow: var(--shadow-hard);
+    padding: var(--space-6);
+  }
+
+  .hero__panel-top {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    color: var(--color-muted);
+  }
+
+  .hero__live {
+    color: var(--color-lime);
+  }
+
+  .hero__panel-title {
+    margin-top: var(--space-6);
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: var(--font-weight-bold);
+  }
+
+  .hero__stats {
+    list-style: none;
+    margin-top: var(--space-6);
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .hero__stats li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-4);
+    align-items: baseline;
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .hero__stats span {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-lime);
+  }
+
+  .hero__stats p {
+    font-size: var(--text-sm);
+  }
+
+  .hero__panel-link {
+    display: inline-block;
+    margin-top: var(--space-6);
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-sm);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--color-lime);
+  }
+
+  .approach-head {
+    display: grid;
+    gap: var(--space-4);
+    margin-bottom: var(--space-10);
+    max-width: 28rem;
+  }
+
+  .approach {
+    list-style: none;
+    border-top: var(--border-w) solid var(--color-border);
+  }
+
+  .approach__row {
+    display: grid;
+    grid-template-columns: 4rem 1fr;
+    gap: var(--space-4);
+    padding-block: var(--space-8);
+    border-bottom: var(--border-w) solid var(--color-border);
+  }
+
+  @media (min-width: 768px) {
+    .approach__row {
+      grid-template-columns: 7rem 1fr;
+      gap: var(--space-10);
+      align-items: baseline;
+    }
+  }
+
+  .approach__num {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--color-lime);
+  }
+
+  .approach h3 {
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    margin-bottom: var(--space-3);
+  }
+
+  .approach p {
+    max-width: 36rem;
+    color: var(--color-text-muted);
+  }
+
+  .split-band {
+    border-block: var(--border-w) solid var(--color-border);
+    background: var(--color-bg-elevated);
+    padding-block: var(--space-16);
+  }
+
+  .split-band__inner {
+    display: grid;
+    gap: var(--space-8);
+  }
+
+  @media (min-width: 768px) {
+    .split-band__inner {
+      grid-template-columns: 1.2fr 0.8fr;
+      align-items: end;
+    }
+  }
+
+  .split-band .lead {
+    margin-top: var(--space-4);
+  }
+
+  .split-band__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .finale__title {
+    margin-top: var(--space-4);
+  }
+
+  .finale__title span {
+    color: var(--color-lime);
+  }
+
+  .finale__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-8);
+  }
+</style>

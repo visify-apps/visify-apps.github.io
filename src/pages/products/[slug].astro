@@ -1,0 +1,422 @@
+---
+import Button from "../../components/Button.astro";
+import Section from "../../components/Section.astro";
+import StatusBadge from "../../components/StatusBadge.astro";
+import {
+  canShowPrimaryAction,
+  products,
+  type Product,
+} from "../../data/products";
+import { mailto } from "../../data/site";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export function getStaticPaths() {
+  return products.map((product) => ({
+    params: { slug: product.slug },
+    props: { product },
+  }));
+}
+
+interface Props {
+  product: Product;
+}
+
+const { product } = Astro.props;
+const showAction = canShowPrimaryAction(product);
+const title = product.seo?.title ?? `${product.name} — ${product.tagline}`;
+const description = product.seo?.description ?? product.description;
+const ogImage = product.screenshots?.[0] ?? product.icon;
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalPath={`/products/${product.slug}`}
+  ogImage={ogImage}
+>
+  <Section
+    class="identity"
+    style={product.accentColor ? `--product-accent: ${product.accentColor}` : undefined}
+  >
+    <div class="identity__meta">
+      <StatusBadge status={product.status} />
+      <span class="identity__cat">{product.category}</span>
+    </div>
+
+    {
+      product.icon && (
+        <img
+          class="identity__icon"
+          src={product.icon}
+          alt=""
+          width="72"
+          height="72"
+        />
+      )
+    }
+
+    <h1>{product.name}</h1>
+    <p class="identity__tag">{product.tagline}</p>
+    <p class="lead">{product.description}</p>
+
+    <div class="actions">
+      {
+        showAction && product.primaryAction ? (
+          <Button
+            href={product.primaryAction.href}
+            external={product.primaryAction.external}
+          >
+            {product.primaryAction.label}
+          </Button>
+        ) : (
+          <Button href={mailto(`Interest in ${product.name}`)}>
+            Contact about this
+          </Button>
+        )
+      }
+      <Button href="/products" variant="ghost">Directory</Button>
+    </div>
+  </Section>
+
+  {
+    product.problem && (
+      <section class="band">
+        <div class="container">
+          <p class="label">Problem</p>
+          <h2>Why it exists</h2>
+          <p class="band__text">{product.problem}</p>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    product.steps && product.steps.length > 0 && (
+      <Section>
+        <p class="label">Flow</p>
+        <h2>How it works</h2>
+        <ol class="steps">
+          {product.steps.map((step, index) => (
+            <li>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <div>
+                <h3>{step.title}</h3>
+                <p>{step.body}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </Section>
+    )
+  }
+
+  {
+    product.features && product.features.length > 0 && (
+      <section class="band">
+        <div class="container">
+          <p class="label">Features</p>
+          <h2>What matters</h2>
+          <ul class="features">
+            {product.features.map((feature) => (
+              <li>
+                <h3>{feature.title}</h3>
+                <p>{feature.body}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    product.screenshots && product.screenshots.length > 0 && (
+      <Section>
+        <p class="label">Visuals</p>
+        <h2>Inside the product</h2>
+        <ul class="shots">
+          {product.screenshots.map((src, index) => (
+            <li>
+              <img
+                src={src}
+                alt={`${product.name} screenshot ${index + 1}`}
+                loading="lazy"
+                width="800"
+                height="500"
+              />
+            </li>
+          ))}
+        </ul>
+      </Section>
+    )
+  }
+
+  {
+    (product.platforms?.length || product.status) && (
+      <Section>
+        <p class="label">Availability</p>
+        <h2>Release</h2>
+        <dl class="avail">
+          <div>
+            <dt>Status</dt>
+            <dd>
+              <StatusBadge status={product.status} />
+            </dd>
+          </div>
+          {product.platforms && product.platforms.length > 0 && (
+            <div>
+              <dt>Platforms</dt>
+              <dd>{product.platforms.join(" · ")}</dd>
+            </div>
+          )}
+        </dl>
+      </Section>
+    )
+  }
+
+  {
+    product.privacyNotes && (
+      <section class="band">
+        <div class="container">
+          <p class="label">Privacy</p>
+          <h2>Data handling</h2>
+          <p class="band__text">{product.privacyNotes}</p>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    product.faqs && product.faqs.length > 0 && (
+      <Section>
+        <p class="label">FAQ</p>
+        <h2>Questions</h2>
+        <div class="faqs">
+          {product.faqs.map((item) => (
+            <details>
+              <summary>{item.q}</summary>
+              <p>{item.a}</p>
+            </details>
+          ))}
+        </div>
+      </Section>
+    )
+  }
+
+  <section class="cta-band">
+    <div class="container">
+      <h2>Next</h2>
+      <p class="lead">
+        {
+          showAction
+            ? `Try ${product.name}.`
+            : `${product.name} isn’t public yet — ask us anything.`
+        }
+      </p>
+      <div class="actions">
+        {
+          showAction && product.primaryAction ? (
+            <Button
+              href={product.primaryAction.href}
+              external={product.primaryAction.external}
+            >
+              {product.primaryAction.label}
+            </Button>
+          ) : (
+            <Button href={mailto(`Interest in ${product.name}`)}>
+              Contact
+            </Button>
+          )
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .identity__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-6);
+  }
+
+  .identity__cat {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  .identity__icon {
+    width: 4.5rem;
+    height: 4.5rem;
+    margin-bottom: var(--space-5);
+    border: var(--border-w) solid var(--product-accent, var(--color-lime));
+    object-fit: cover;
+  }
+
+  .identity__tag {
+    margin-top: var(--space-4);
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-lime);
+  }
+
+  .identity .lead {
+    margin-top: var(--space-4);
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-8);
+  }
+
+  .band {
+    border-block: var(--border-w) solid var(--color-border);
+    background: var(--color-bg-elevated);
+    padding-block: var(--space-16);
+  }
+
+  .band .label + h2 {
+    margin-top: var(--space-3);
+  }
+
+  .band__text {
+    margin-top: var(--space-5);
+    max-width: 36rem;
+    font-size: var(--text-lg);
+    color: var(--color-text-muted);
+  }
+
+  .steps {
+    list-style: none;
+    margin-top: var(--space-8);
+    border-top: var(--border-w) solid var(--color-border);
+  }
+
+  .steps li {
+    display: grid;
+    grid-template-columns: 3.5rem 1fr;
+    gap: var(--space-4);
+    padding-block: var(--space-6);
+    border-bottom: var(--border-w) solid var(--color-border);
+  }
+
+  .steps span {
+    font-family: var(--font-mono);
+    color: var(--color-lime);
+  }
+
+  .steps p {
+    margin-top: var(--space-2);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .features {
+    list-style: none;
+    display: grid;
+    gap: var(--space-4);
+    margin-top: var(--space-8);
+  }
+
+  @media (min-width: 768px) {
+    .features {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .features li {
+    padding: var(--space-5);
+    border: var(--border-w) solid var(--color-border);
+    background: var(--color-bg);
+  }
+
+  .features h3 {
+    margin-bottom: var(--space-2);
+  }
+
+  .features p {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  .shots {
+    list-style: none;
+    display: grid;
+    gap: var(--space-6);
+    margin-top: var(--space-8);
+  }
+
+  @media (min-width: 768px) {
+    .shots {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .shots img {
+    width: 100%;
+    border: var(--border-w) solid var(--color-border);
+    background: var(--color-bg-elevated);
+  }
+
+  .avail {
+    display: grid;
+    gap: var(--space-6);
+    margin-top: var(--space-6);
+  }
+
+  .avail dt {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    margin-bottom: var(--space-2);
+  }
+
+  .avail dd {
+    margin: 0;
+  }
+
+  .faqs {
+    display: grid;
+    gap: var(--space-3);
+    margin-top: var(--space-8);
+    max-width: 40rem;
+  }
+
+  .faqs details {
+    padding: var(--space-4) var(--space-5);
+    border: var(--border-w) solid var(--color-border);
+    background: var(--color-bg-elevated);
+  }
+
+  .faqs summary {
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    cursor: pointer;
+  }
+
+  .faqs p {
+    margin-top: var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  .cta-band {
+    border-top: var(--border-w) solid var(--color-lime);
+    background: var(--color-black);
+    padding-block: var(--space-16);
+  }
+
+  .cta-band h2 {
+    margin-bottom: var(--space-3);
+  }
+</style>

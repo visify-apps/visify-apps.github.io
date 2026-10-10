@@ -1,0 +1,163 @@
+---
+import { getListedProducts } from "../data/products";
+import { mailto, navLinks, site } from "../data/site";
+import Logo from "./Logo.astro";
+
+const listed = getListedProducts();
+---
+
+<footer class="footer">
+  <div class="footer__band">
+    <div class="container footer__cta-row">
+      <p class="footer__hook">Got a question?</p>
+      <a class="footer__mail" href={mailto()}>{site.email}</a>
+    </div>
+  </div>
+
+  <div class="container footer__grid">
+    <div>
+      <Logo />
+      <p class="footer__blurb">{site.tagline}</p>
+    </div>
+
+    <div>
+      <p class="footer__h">Nav</p>
+      <ul>
+        {
+          navLinks.map((link) => (
+            <li>
+              <a href={link.href}>{link.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div>
+      <p class="footer__h">Products</p>
+      <ul>
+        <li><a href="/products">Directory</a></li>
+        {
+          listed.map((p) => (
+            <li>
+              <a href={`/products/${p.slug}`}>{p.name}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div>
+      <p class="footer__h">Legal</p>
+      <ul>
+        <li><a href="/privacy">Privacy</a></li>
+        <li><a href="/terms">Terms</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container footer__bottom">
+    <p>© {site.copyrightYear} {site.shortName}</p>
+    <p class="footer__mono">Built with intent</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    margin-top: auto;
+    border-top: var(--border-w) solid var(--color-border);
+    background: var(--color-black);
+  }
+
+  .footer__band {
+    border-bottom: var(--border-w) solid var(--color-border);
+    background: var(--color-lime);
+    color: var(--color-accent-ink);
+  }
+
+  .footer__cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding-block: var(--space-5);
+  }
+
+  .footer__hook {
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    font-weight: var(--font-weight-bold);
+  }
+
+  .footer__mail {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    border-bottom: 2px solid currentColor;
+  }
+
+  .footer__grid {
+    display: grid;
+    gap: var(--space-10);
+    padding-block: var(--space-12);
+  }
+
+  @media (min-width: 720px) {
+    .footer__grid {
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    }
+  }
+
+  .footer__blurb {
+    margin-top: var(--space-4);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-lime);
+  }
+
+  .footer__h {
+    margin-bottom: var(--space-4);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  .footer ul {
+    list-style: none;
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .footer a {
+    text-decoration: none;
+    font-size: var(--text-sm);
+    color: var(--color-white);
+  }
+
+  .footer a:hover {
+    color: var(--color-lime);
+  }
+
+  .footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding-block: var(--space-5);
+    border-top: 1px solid var(--color-border);
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+  }
+
+  .footer__mono {
+    font-family: var(--font-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+</style>

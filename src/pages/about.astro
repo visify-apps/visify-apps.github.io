@@ -1,0 +1,178 @@
+---
+import Button from "../components/Button.astro";
+import Section from "../components/Section.astro";
+import { approachPoints, mailto, site } from "../data/site";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="About"
+  description="What Visify Apps is, why we build, and how we approach software."
+  canonicalPath="/about"
+>
+  <Section class="about-hero">
+    <p class="label">About</p>
+    <h1>
+      Small studio.<br />
+      <span>Sharp tools.</span>
+    </h1>
+    <p class="lead about-hero__lead">
+      Visify Apps builds focused digital products. We care about clarity,
+      reliability, and software that still feels useful after day one.
+    </p>
+  </Section>
+
+  <section class="manifesto">
+    <div class="container manifesto__grid">
+      <p class="manifesto__kicker">Why we exist</p>
+      <div>
+        <p class="manifesto__text">
+          Everyday tasks get buried under bloated apps. We ship the opposite —
+          tools with a clear job, restrained interfaces, and no theater.
+        </p>
+        <p class="manifesto__text manifesto__text--muted">
+          Products join the public directory only when the story is real:
+          status, features, and links you can trust.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <Section>
+    <p class="label">Operating system</p>
+    <h2 class="block-title">Three rules we keep</h2>
+    <ul class="rules">
+      {
+        approachPoints.map((point, i) => (
+          <li>
+            <span aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+            <div>
+              <h3>{point.title}</h3>
+              <p>{point.body}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
+
+  <Section class="about-cta">
+    <div class="about-cta__box">
+      <h2>Say hi</h2>
+      <p>
+        Company questions, future product interest, or partnerships — one inbox.
+      </p>
+      <div class="about-cta__actions">
+        <Button href={mailto("About Visify Apps")}>Email {site.email}</Button>
+        <Button href="/contact" variant="ghost">All contact options</Button>
+      </div>
+    </div>
+  </Section>
+</BaseLayout>
+
+<style>
+  .about-hero h1 span {
+    color: var(--color-lime);
+  }
+
+  .about-hero__lead {
+    margin-top: var(--space-6);
+  }
+
+  .manifesto {
+    border-block: var(--border-w) solid var(--color-border);
+    background: var(--color-bg-elevated);
+    padding-block: var(--space-16);
+  }
+
+  .manifesto__grid {
+    display: grid;
+    gap: var(--space-8);
+  }
+
+  @media (min-width: 768px) {
+    .manifesto__grid {
+      grid-template-columns: 10rem 1fr;
+      gap: var(--space-12);
+    }
+  }
+
+  .manifesto__kicker {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-lime);
+  }
+
+  .manifesto__text {
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 3vw, 2rem);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--leading-snug);
+    max-width: 28ch;
+  }
+
+  .manifesto__text--muted {
+    margin-top: var(--space-6);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-normal);
+    color: var(--color-text-muted);
+    max-width: 40ch;
+  }
+
+  .block-title {
+    margin-top: var(--space-4);
+    margin-bottom: var(--space-10);
+  }
+
+  .rules {
+    list-style: none;
+    display: grid;
+    gap: 0;
+    border-top: var(--border-w) solid var(--color-border);
+  }
+
+  .rules li {
+    display: grid;
+    grid-template-columns: 3.5rem 1fr;
+    gap: var(--space-4);
+    padding-block: var(--space-8);
+    border-bottom: var(--border-w) solid var(--color-border);
+  }
+
+  .rules span {
+    font-family: var(--font-mono);
+    color: var(--color-lime);
+  }
+
+  .rules h3 {
+    margin-bottom: var(--space-2);
+  }
+
+  .rules p {
+    color: var(--color-text-muted);
+    max-width: 36rem;
+  }
+
+  .about-cta__box {
+    padding: var(--space-8);
+    border: var(--border-w) solid var(--color-lime);
+    background: var(--color-bg-elevated);
+    box-shadow: var(--shadow-hard);
+  }
+
+  .about-cta__box p {
+    margin-top: var(--space-3);
+    color: var(--color-text-muted);
+    max-width: 32rem;
+  }
+
+  .about-cta__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+  }
+</style>

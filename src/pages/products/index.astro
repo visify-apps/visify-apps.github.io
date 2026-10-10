@@ -1,0 +1,182 @@
+---
+import Button from "../../components/Button.astro";
+import ProductCard from "../../components/ProductCard.astro";
+import Section from "../../components/Section.astro";
+import StatusBadge from "../../components/StatusBadge.astro";
+import {
+  getListedProducts,
+  statusDescriptions,
+  type ProductStatus,
+} from "../../data/products";
+import { mailto } from "../../data/site";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const listed = getListedProducts();
+const legendStatuses: ProductStatus[] = [
+  "building",
+  "launching_soon",
+  "available",
+  "retired",
+];
+---
+
+<BaseLayout
+  title="Products"
+  description="Visify Apps product directory — listed only when ready."
+  canonicalPath="/products"
+>
+  <Section>
+    <p class="label">Directory</p>
+    <h1>
+      Products<br />
+      <span>on the board</span>
+    </h1>
+    <p class="lead intro">
+      The public list for Visify software. Entries appear with real status —
+      never as decoration.
+    </p>
+
+    {
+      listed.length > 0 ? (
+        <ul class="grid">
+          {listed.map((product) => (
+            <li>
+              <ProductCard product={product} />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div class="board" role="status">
+          <div class="board__bar">
+            <span>STUDIO BOARD</span>
+            <span class="board__pulse">LIVE</span>
+          </div>
+          <h2>Nothing public yet</h2>
+          <p>
+            We’re building. When a product earns a listing, it shows up here
+            with a clear badge and links that work.
+          </p>
+          <div class="board__actions">
+            <Button href={mailto("Product updates")}>Ask for updates</Button>
+            <Button href="/about" variant="ghost">About the studio</Button>
+          </div>
+        </div>
+      )
+    }
+  </Section>
+
+  <section class="legend-wrap">
+    <div class="container">
+      <p class="label">Status system</p>
+      <h2>How we label work</h2>
+      <ul class="legend">
+        {
+          legendStatuses.map((status) => (
+            <li>
+              <StatusBadge status={status} />
+              <p>{statusDescriptions[status]}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  h1 span {
+    color: var(--color-lime);
+  }
+
+  .intro {
+    margin-top: var(--space-5);
+    margin-bottom: var(--space-10);
+  }
+
+  .grid {
+    list-style: none;
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 768px) {
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .board {
+    border: var(--border-w) solid var(--color-lime);
+    background: var(--color-bg-elevated);
+    box-shadow: var(--shadow-hard);
+    padding: var(--space-8);
+    max-width: 36rem;
+  }
+
+  .board__bar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--space-6);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    color: var(--color-muted);
+  }
+
+  .board__pulse {
+    color: var(--color-lime);
+  }
+
+  .board h2 {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    margin-bottom: var(--space-3);
+  }
+
+  .board > p {
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .board__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+  }
+
+  .legend-wrap {
+    border-top: var(--border-w) solid var(--color-border);
+    background: var(--color-black);
+    padding-block: var(--space-16);
+  }
+
+  .legend-wrap h2 {
+    margin-top: var(--space-3);
+    margin-bottom: var(--space-8);
+  }
+
+  .legend {
+    list-style: none;
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 768px) {
+    .legend {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .legend li {
+    display: grid;
+    gap: var(--space-3);
+    padding: var(--space-5);
+    border: var(--border-w) solid var(--color-border);
+    background: var(--color-bg-elevated);
+  }
+
+  .legend p {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+</style>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <rect width="1200" height="630" fill="#0A0A0A"/>
+  <rect x="0" y="0" width="1200" height="16" fill="#C8FF4D"/>
+  <rect x="80" y="160" width="88" height="88" fill="#C8FF4D"/>
+  <path d="M102 182h14L130 220l14-38h14L140 242h-12L102 182Z" fill="#0A0A0A"/>
+  <text x="80" y="340" fill="#F5F5F5" font-family="Arial Black, Arial, sans-serif" font-size="96" font-weight="800" letter-spacing="-2">VISIFY</text>
+  <text x="80" y="420" fill="#C8FF4D" font-family="Arial Black, Arial, sans-serif" font-size="72" font-weight="800" letter-spacing="-1">APPS</text>
+  <text x="80" y="520" fill="#8A8A8A" font-family="Arial, sans-serif" font-size="28" letter-spacing="6">BUILD · CREATE · GROW</text>
+</svg>

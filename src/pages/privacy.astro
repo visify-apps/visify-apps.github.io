@@ -1,0 +1,97 @@
+---
+import Section from "../components/Section.astro";
+import { mailto, site } from "../data/site";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const lastUpdated = "10 October 2026";
+---
+
+<BaseLayout
+  title="Privacy policy"
+  description="How Visify Apps handles information on this website."
+  canonicalPath="/privacy"
+>
+  <Section narrow>
+    <p class="label">Legal</p>
+    <h1>Privacy</h1>
+    <p class="meta">Updated {lastUpdated}</p>
+
+    <div class="prose">
+      <p>
+        This policy covers the {site.shortName} company website and ordinary
+        business email. Product apps may have their own notices when listed.
+      </p>
+
+      <h2>Who we are</h2>
+      <p>
+        {site.name}. Contact:
+        <a href={mailto("Privacy enquiry")}>{site.email}</a>.
+      </p>
+
+      <h2>What this site does</h2>
+      <p>
+        Informational pages about the company and product directory. No account
+        system on this website.
+      </p>
+
+      <h2>Information we may process</h2>
+      <ul>
+        <li>
+          Email content and address when you write to {site.email}
+        </li>
+        <li>
+          Standard hosting or CDN logs (IP, user agent, requested URL) from our
+          host
+        </li>
+      </ul>
+      <p>
+        There is no contact form yet. If we add one, this policy will be
+        updated.
+      </p>
+
+      <h2>Analytics and cookies</h2>
+      <p>
+        We do not currently use third-party analytics or non-essential cookies.
+        If that changes, we will update this page.
+      </p>
+
+      <h2>How we use information</h2>
+      <ul>
+        <li>Reply to enquiries and feedback</li>
+        <li>Operate and secure the site</li>
+        <li>Improve communications and products where relevant</li>
+      </ul>
+
+      <h2>Sharing</h2>
+      <p>
+        We do not sell personal information. Providers that host the site or
+        deliver email may process data as needed to run those services, or when
+        law requires.
+      </p>
+
+      <h2>Product-specific privacy</h2>
+      <p>
+        Individual apps can differ. When a product is listed here, we will link
+        its own privacy details if applicable.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        Questions:
+        <a href={mailto("Privacy enquiry")}>{site.email}</a>.
+      </p>
+    </div>
+  </Section>
+</BaseLayout>
+
+<style>
+  .meta {
+    margin-top: var(--space-4);
+    margin-bottom: var(--space-8);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+</style>

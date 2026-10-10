@@ -1,0 +1,124 @@
+---
+import Section from "../components/Section.astro";
+import { contactChannels, mailto, site } from "../data/site";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Contact"
+  description="Email Visify Apps for general, support, feedback, or business enquiries."
+  canonicalPath="/contact"
+>
+  <Section>
+    <p class="label">Contact</p>
+    <h1>
+      One inbox.<br />
+      <span>Clear intent.</span>
+    </h1>
+    <p class="lead contact-lead">
+      Pick a lane so we know how to reply. Everything goes to the same address —
+      no form yet, on purpose.
+    </p>
+
+    <a class="contact-mail" href={mailto()}>{site.email}</a>
+
+    <ul class="lanes">
+      {
+        contactChannels.map((channel, i) => (
+          <li>
+            <a href={mailto(channel.subject)}>
+              <span class="lanes__idx">0{i + 1}</span>
+              <span class="lanes__body">
+                <span class="lanes__title">{channel.title}</span>
+                <span class="lanes__desc">{channel.description}</span>
+              </span>
+              <span class="lanes__go" aria-hidden="true">→</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
+</BaseLayout>
+
+<style>
+  h1 span {
+    color: var(--color-lime);
+  }
+
+  .contact-lead {
+    margin-top: var(--space-5);
+  }
+
+  .contact-mail {
+    display: inline-block;
+    margin-top: var(--space-8);
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-lime);
+    text-decoration: none;
+    border-bottom: 3px solid var(--color-lime);
+  }
+
+  .contact-mail:hover {
+    color: var(--color-white);
+    border-color: var(--color-white);
+  }
+
+  .lanes {
+    list-style: none;
+    margin-top: var(--space-12);
+    border-top: var(--border-w) solid var(--color-border);
+  }
+
+  .lanes a {
+    display: grid;
+    grid-template-columns: 3rem 1fr auto;
+    gap: var(--space-4);
+    align-items: center;
+    padding-block: var(--space-6);
+    border-bottom: var(--border-w) solid var(--color-border);
+    text-decoration: none;
+    transition: background var(--duration) var(--ease);
+  }
+
+  .lanes a:hover {
+    background: var(--color-bg-elevated);
+  }
+
+  .lanes a:hover .lanes__go {
+    color: var(--color-lime);
+    transform: translateX(4px);
+  }
+
+  .lanes__idx {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-lime);
+  }
+
+  .lanes__body {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .lanes__title {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: var(--font-weight-bold);
+  }
+
+  .lanes__desc {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  .lanes__go {
+    font-size: var(--text-2xl);
+    color: var(--color-muted);
+    transition:
+      color var(--duration) var(--ease),
+      transform var(--duration) var(--ease);
+  }
+</style>

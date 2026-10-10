@@ -1,0 +1,144 @@
+---
+import { canShowPrimaryAction, type Product } from "../data/products";
+import Button from "./Button.astro";
+import StatusBadge from "./StatusBadge.astro";
+
+interface Props {
+  product: Product;
+}
+
+const { product } = Astro.props;
+const showAction = canShowPrimaryAction(product);
+---
+
+<article
+  class="card"
+  style={product.accentColor ? `--product-accent: ${product.accentColor}` : undefined}
+>
+  <div class="card__head">
+    <StatusBadge status={product.status} />
+    <span class="card__cat">{product.category}</span>
+  </div>
+
+  {
+    product.icon && (
+      <img
+        class="card__icon"
+        src={product.icon}
+        alt=""
+        width="56"
+        height="56"
+      />
+    )
+  }
+
+  <h3 class="card__name">
+    <a href={`/products/${product.slug}`}>{product.name}</a>
+  </h3>
+  <p class="card__tagline">{product.tagline}</p>
+  <p class="card__desc">{product.description}</p>
+
+  {
+    product.screenshots?.[0] && (
+      <img
+        class="card__shot"
+        src={product.screenshots[0]}
+        alt={`${product.name} interface`}
+        loading="lazy"
+        width="640"
+        height="360"
+      />
+    )
+  }
+
+  <div class="card__actions">
+    <Button href={`/products/${product.slug}`} variant="ghost">Details</Button>
+    {
+      showAction && product.primaryAction && (
+        <Button
+          href={product.primaryAction.href}
+          external={product.primaryAction.external}
+        >
+          {product.primaryAction.label}
+        </Button>
+      )
+    }
+  </div>
+</article>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    height: 100%;
+    padding: var(--space-6);
+    border: var(--border-w) solid var(--color-border);
+    background: var(--color-bg-elevated);
+    transition: border-color var(--duration) var(--ease);
+  }
+
+  .card:hover {
+    border-color: var(--color-lime);
+  }
+
+  .card__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+  }
+
+  .card__cat {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  .card__icon {
+    width: 3.5rem;
+    height: 3.5rem;
+    border: var(--border-w) solid var(--product-accent, var(--color-lime));
+    object-fit: cover;
+  }
+
+  .card__name {
+    font-size: var(--text-2xl);
+  }
+
+  .card__name a {
+    text-decoration: none;
+  }
+
+  .card__name a:hover {
+    color: var(--color-lime);
+  }
+
+  .card__tagline {
+    font-weight: var(--font-weight-medium);
+  }
+
+  .card__desc {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    flex: 1;
+  }
+
+  .card__shot {
+    width: 100%;
+    margin-top: var(--space-2);
+    border: var(--border-w) solid var(--color-border);
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+
+  .card__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-2);
+  }
+</style>

@@ -1,0 +1,92 @@
+/**
+ * VISIFY APPS — dark canvas + lime accent
+ * Swap values when Figma kit arrives; keep variable names stable.
+ */
+:root {
+  --color-black: #000000;
+  --color-bg: #0a0a0a;
+  --color-bg-elevated: #121212;
+  --color-bg-soft: #161616;
+  --color-lime: #c8ff4d;
+  --color-lime-dim: #a8d93a;
+  --color-white: #f5f5f5;
+  --color-muted: #8a8a8a;
+  --color-faint: #3a3a3a;
+  --color-border: #2a2a2a;
+  --color-charcoal: #1f1f1f;
+
+  --color-text: var(--color-white);
+  --color-text-muted: var(--color-muted);
+  --color-accent: var(--color-lime);
+  --color-accent-ink: #0a0a0a;
+  --color-focus: var(--color-lime);
+
+  /* Display = personality; body = readable */
+  --font-display: "Syne", "Arial Black", Impact, sans-serif;
+  --font-sans: "DM Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-black: 800;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1.0625rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 2rem;
+  --text-3xl: 2.75rem;
+  --text-4xl: 3.75rem;
+  --text-5xl: 5.5rem;
+  --text-hero: clamp(3.25rem, 12vw, 7.5rem);
+
+  --leading-none: 0.92;
+  --leading-tight: 1.05;
+  --leading-snug: 1.35;
+  --leading-normal: 1.6;
+
+  --tracking-tight: -0.04em;
+  --tracking-label: 0.14em;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  --container-max: 74rem;
+  --header-height: 4.25rem;
+
+  /* Sharp neo-brutal edges */
+  --radius-none: 0;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+
+  --border-w: 2px;
+  --shadow-hard: 4px 4px 0 var(--color-lime);
+  --shadow-hard-sm: 3px 3px 0 var(--color-lime);
+  --shadow-ink: 4px 4px 0 #fff;
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 120ms;
+  --duration: 240ms;
+
+  --status-building-bg: #2a2410;
+  --status-building-text: var(--color-lime);
+  --status-launching-bg: #12202a;
+  --status-launching-text: #7dd3fc;
+  --status-available-bg: #122a18;
+  --status-available-text: #86efac;
+  --status-retired-bg: #1a1a1a;
+  --status-retired-text: var(--color-muted);
+}

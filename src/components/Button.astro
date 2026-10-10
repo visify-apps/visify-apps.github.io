@@ -1,0 +1,87 @@
+---
+interface Props {
+  href: string;
+  variant?: "primary" | "ghost" | "lime-outline";
+  external?: boolean;
+  class?: string;
+}
+
+const {
+  href,
+  variant = "primary",
+  external = false,
+  class: className = "",
+} = Astro.props;
+---
+
+<a
+  href={href}
+  class:list={["btn", `btn--${variant}`, className]}
+  {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+>
+  <slot />
+</a>
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 3rem;
+    padding: 0.75rem 1.35rem;
+    border: var(--border-w) solid transparent;
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition:
+      transform var(--duration-fast) var(--ease),
+      box-shadow var(--duration-fast) var(--ease),
+      background var(--duration-fast) var(--ease),
+      color var(--duration-fast) var(--ease);
+  }
+
+  .btn--primary {
+    background: var(--color-lime);
+    color: var(--color-accent-ink);
+    border-color: var(--color-lime);
+    box-shadow: var(--shadow-hard-sm);
+  }
+
+  .btn--primary:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0 var(--color-white);
+    color: var(--color-accent-ink);
+  }
+
+  .btn--primary:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--color-lime);
+  }
+
+  .btn--ghost {
+    background: transparent;
+    color: var(--color-white);
+    border-color: var(--color-border);
+  }
+
+  .btn--ghost:hover {
+    border-color: var(--color-white);
+    color: var(--color-white);
+    background: rgb(255 255 255 / 0.04);
+  }
+
+  .btn--lime-outline {
+    background: transparent;
+    color: var(--color-lime);
+    border-color: var(--color-lime);
+  }
+
+  .btn--lime-outline:hover {
+    background: var(--color-lime);
+    color: var(--color-accent-ink);
+  }
+</style>

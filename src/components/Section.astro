@@ -1,0 +1,43 @@
+---
+interface Props {
+  id?: string;
+  class?: string;
+  narrow?: boolean;
+  flush?: boolean;
+  style?: string;
+}
+
+const {
+  id,
+  class: className = "",
+  narrow = false,
+  flush = false,
+  style,
+} = Astro.props;
+---
+
+<section
+  id={id}
+  class:list={["section", className, { "section--flush": flush }]}
+  style={style}
+>
+  <div class:list={["container", { "container--narrow": narrow }]}>
+    <slot />
+  </div>
+</section>
+
+<style>
+  .section {
+    padding-block: var(--space-16);
+  }
+
+  @media (min-width: 768px) {
+    .section {
+      padding-block: var(--space-20);
+    }
+  }
+
+  .section--flush {
+    padding-block: 0;
+  }
+</style>

@@ -1,0 +1,43 @@
+---
+import Button from "../components/Button.astro";
+import Section from "../components/Section.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Page not found"
+  description="This page does not exist on Visify Apps."
+  noIndex={true}
+>
+  <Section class="nf">
+    <p class="label">404</p>
+    <h1>
+      Lost<br />
+      <span>signal</span>
+    </h1>
+    <p class="lead">
+      That URL isn’t on this site. Head home or browse the product directory.
+    </p>
+    <div class="nf__actions">
+      <Button href="/">Home</Button>
+      <Button href="/products" variant="ghost">Products</Button>
+    </div>
+  </Section>
+</BaseLayout>
+
+<style>
+  .nf h1 span {
+    color: var(--color-lime);
+  }
+
+  .nf .lead {
+    margin-top: var(--space-5);
+  }
+
+  .nf__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-8);
+  }
+</style>

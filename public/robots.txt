@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://visify-apps.github.io/sitemap-index.xml
