@@ -91,7 +91,66 @@ export const statusDescriptions: Record<ProductStatus, string> = {
  * Public product entries. Keep empty until a product is ready to list honestly.
  * Do not add unpublished app names as if they were shipped products.
  */
-export const products: Product[] = [];
+export const products: Product[] = [
+  {
+    slug: "toward",
+    name: "Toward",
+    tagline: "Interview tracker — see what’s stuck, act on what’s next.",
+    description:
+      "Offline-first application and round tracker for freshers and early-career job seekers. Log companies, rounds, and resume versions. Home shows what needs you.",
+    category: "Productivity",
+    status: "launching_soon",
+    platforms: ["Android"],
+    problem:
+      "Job seekers lose track of silent applications, past-due rounds, and which resume they sent.",
+    steps: [
+      {
+        title: "Log applications",
+        body: "Add company + role as you apply. Stamp the resume version you used.",
+      },
+      {
+        title: "Track rounds",
+        body: "Assessment → technical → manager — update pass or fail when done.",
+      },
+      {
+        title: "Act on Home",
+        body: "Needs you, coming up, and grind buckets keep the next step obvious.",
+      },
+    ],
+    features: [
+      {
+        title: "Offline-first",
+        body: "Chase data lives on your phone. Cloud backup is optional.",
+      },
+      {
+        title: "Resume library",
+        body: "Version labels and on-device files — preview, download, or share.",
+      },
+      {
+        title: "Insights + PDF",
+        body: "Where they stand, plus an exportable interview summary.",
+      },
+    ],
+    privacyNotes:
+      "Local-first. Optional Firebase backup stores metadata only (not resume file bytes). Ads via Google AdMob.",
+    faqs: [
+      {
+        q: "Do I need an account?",
+        a: "No. Sign-in is only for optional cloud backup.",
+      },
+      {
+        q: "Are resume PDFs uploaded?",
+        a: "No. Only resume labels/metadata can sync; file bytes stay on-device.",
+      },
+    ],
+    accentColor: "#2B6A7A",
+    seo: {
+      title: "Toward — Interview Tracker · Visify Apps",
+      description:
+        "Offline-first interview and application tracker by Visify Apps.",
+    },
+  },
+];
 
 export function getProductBySlug(slug: string): Product | undefined {
   return products.find((p) => p.slug === slug);

@@ -1,0 +1,73 @@
+---
+import Section from "../../components/Section.astro";
+import { mailto, site } from "../../data/site";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Toward Account Deletion"
+  description="How to delete your Toward account and cloud backup."
+  canonicalPath="/privacy/toward-deletion"
+>
+  <Section narrow>
+    <p class="label">Legal · Toward</p>
+    <h1>Delete your Toward account</h1>
+    <p class="meta">
+      Package <code>com.visify.toward</code> · Contact
+      <a href={mailto("Toward account deletion")}>{site.email}</a>
+    </p>
+
+    <div class="prose">
+      <p>
+        Toward works offline without an account. An account is only used for
+        optional <strong>cloud backup</strong>. You can delete that account
+        anytime.
+      </p>
+
+      <h2>Delete in the app (recommended)</h2>
+      <ol>
+        <li>Open <strong>Toward</strong> on your phone.</li>
+        <li>Go to <strong>Settings → Cloud backup</strong>.</li>
+        <li>Sign in if you are not already signed in.</li>
+        <li>Tap <strong>Delete account</strong> and confirm.</li>
+      </ol>
+      <p>
+        This deletes your Firebase account and cloud backup for Toward. Data
+        stored only on your phone is not removed unless you also use
+        <strong>Settings → Clear all data</strong>.
+      </p>
+
+      <h2>If you cannot open the app</h2>
+      <p>
+        Email
+        <a href={mailto("Toward account deletion")}>{site.email}</a>
+        from the same address you used to sign in (Google or email/password).
+        Include the subject “Toward account deletion”. We will delete the
+        account and associated cloud backup within a reasonable time.
+      </p>
+
+      <h2>Privacy</h2>
+      <p>
+        See the full
+        <a href="/privacy/toward">Toward privacy policy</a>.
+      </p>
+    </div>
+  </Section>
+</BaseLayout>
+
+<style>
+  .meta {
+    margin-top: var(--space-4);
+    margin-bottom: var(--space-8);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+  }
+</style>
